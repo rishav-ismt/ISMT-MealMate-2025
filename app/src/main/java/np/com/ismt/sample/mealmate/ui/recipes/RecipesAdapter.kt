@@ -7,7 +7,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import np.com.ismt.sample.mealmate.helpers.HelperUtil
 import np.com.ismt.sample.mealmate.databinding.LayoutRecipeItemBinding
-import np.com.ismt.sample.mealmate.recipe.Recipe
+import np.com.ismt.sample.mealmate.models.Recipe
 
 class RecipesAdapter(options: FirestoreRecyclerOptions<Recipe>):
     FirestoreRecyclerAdapter<Recipe, RecipesAdapter.RecipeHolder>(options) {
@@ -17,7 +17,12 @@ class RecipesAdapter(options: FirestoreRecyclerOptions<Recipe>):
     ): RecyclerView.ViewHolder(binding.root) {
         fun bindRecipe(recipe: Recipe) {
             recipe.image?.apply {
-                binding.ivRecipeImage.setImageBitmap(HelperUtil.Base64toBitmap(this))
+                binding.ivRecipeImage.setImageBitmap(
+                    HelperUtil.base64toBitmap(
+                        this,
+                        binding.root.context.applicationContext
+                    )
+                )
             }
             binding.tvRecipeName.text = recipe.name
             binding.tvFoodCategory.text = recipe.category

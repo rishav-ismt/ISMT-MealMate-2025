@@ -11,7 +11,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import np.com.ismt.sample.mealmate.databinding.FragmentRecipesBinding
 import np.com.ismt.sample.mealmate.helpers.VerticalSpacingDecorator
-import np.com.ismt.sample.mealmate.recipe.Recipe
+import np.com.ismt.sample.mealmate.models.Recipe
 
 class RecipesFragment : Fragment() {
 
@@ -50,10 +50,10 @@ class RecipesFragment : Fragment() {
                 this.layoutManager = LinearLayoutManager(requireActivity())
                 this.addItemDecoration(
                     VerticalSpacingDecorator(
-                        top = 24,
+                        top = 0,
                         start = 0,
                         end = 0,
-                        bottom = 0
+                        bottom = 16
                     )
                 )
             }
@@ -77,7 +77,7 @@ class RecipesFragment : Fragment() {
     }
 
     private fun setUpRecipesAdapter() {
-        val query = db!!.collection("recipe")
+        val query = db!!.collection("recipes")
 
         val options = FirestoreRecyclerOptions.Builder<Recipe>()
             .setQuery(query, Recipe::class.java)

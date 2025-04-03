@@ -53,6 +53,8 @@ dependencies {
 
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+
+    implementation("com.google.code.gson:gson:2.8.8")
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
