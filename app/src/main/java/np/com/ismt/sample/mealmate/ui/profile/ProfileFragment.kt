@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.firestore.FirebaseFirestore
 import np.com.ismt.sample.mealmate.MainActivity
 import np.com.ismt.sample.mealmate.R
 import np.com.ismt.sample.mealmate.databinding.FragmentProfileBinding
@@ -16,6 +17,8 @@ import np.com.ismt.sample.mealmate.databinding.FragmentProfileBinding
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
+    private var db: FirebaseFirestore? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

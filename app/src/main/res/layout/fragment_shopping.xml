@@ -8,6 +8,19 @@
     tools:context=".ui.shopping.ShoppingFragment">
 
     <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Groceries"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_shopping_notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No items to shop..."
@@ -17,24 +30,32 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="24sp"/>
 
-    <ImageButton
-        android:id="@+id/ib_share"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/ic_circle"
-        android:backgroundTint="@color/bg_general"
-        android:src="@drawable/ic_sms_24"
-        app:layout_constraintEnd_toStartOf="@id/ib_maps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="16dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_grocery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:layout_marginTop="8dp"
+        tools:itemCount="3"
+        tools:listitem="@layout/layout_grocery_shopping_item"/>
 
-    <ImageButton
-        android:id="@+id/ib_maps"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/ic_circle"
-        android:backgroundTint="@color/bg_general"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_sms_24"
+        app:layout_constraintEnd_toStartOf="@id/fab_maps"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="24dp"
+        app:elevation="0dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_maps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_map_24"
+        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

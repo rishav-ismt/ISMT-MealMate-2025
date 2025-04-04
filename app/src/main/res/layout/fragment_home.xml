@@ -6,11 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@android:color/holo_orange_light"
+            android:text="Hi User,\n\n\nWelcome to Mealmate"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="16dp"/>
+    </androidx.cardview.widget.CardView>
+
     <Button
         android:id="@+id/btn_add_default_recipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="Add Default Recipes"
+        android:visibility="gone"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

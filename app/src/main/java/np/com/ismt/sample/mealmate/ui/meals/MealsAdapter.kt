@@ -26,15 +26,17 @@ class MealsAdapter(
             if (recipes.isEmpty()) {
                 return
             }
-            val selectedRecipe = recipes.first { it.id == mealPlan.recipeId }
-            binding.apply {
-                ivMealPlan.setImageBitmap(
-                    HelperUtil.base64toBitmap(selectedRecipe.image, root.context)
-                )
-                tvMealPlanName.text = selectedRecipe.name
-                tvMealDescription.text = selectedRecipe.description
-                tvMealCategory.text = selectedRecipe.category
-                tvMealDate.text = mealPlan.date
+            val selectedRecipe = recipes.find { it.id == mealPlan.recipeId }
+            selectedRecipe?.apply {
+                binding.apply {
+                    ivMealPlan.setImageBitmap(
+                        HelperUtil.base64toBitmap(selectedRecipe.image, root.context)
+                    )
+                    tvMealPlanName.text = selectedRecipe.name
+                    tvMealDescription.text = selectedRecipe.description
+                    tvMealCategory.text = selectedRecipe.category
+                    tvMealDate.text = mealPlan.date
+                }
             }
         }
     }
