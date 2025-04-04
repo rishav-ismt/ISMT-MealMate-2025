@@ -9,14 +9,16 @@ import np.com.ismt.sample.mealmate.helpers.HelperUtil
 import np.com.ismt.sample.mealmate.databinding.LayoutRecipeItemBinding
 import np.com.ismt.sample.mealmate.models.Recipe
 
-class RecipesAdapter(options: FirestoreRecyclerOptions<Recipe>):
-    FirestoreRecyclerAdapter<Recipe, RecipesAdapter.RecipeHolder>(options) {
+class RecipesAdapter(
+    options: FirestoreRecyclerOptions<Recipe>,
+    val onRecipeClicked: (Recipe) -> Unit
+): FirestoreRecyclerAdapter<Recipe, RecipesAdapter.RecipeHolder>(options) {
 
-    class RecipeHolder(
+    inner class RecipeHolder(
         private val binding: LayoutRecipeItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
         fun bindRecipe(recipe: Recipe) {
-            recipe.image?.apply {
+            recipe.image.apply {
                 binding.ivRecipeImage.setImageBitmap(
                     HelperUtil.base64toBitmap(
                         this,
@@ -27,6 +29,10 @@ class RecipesAdapter(options: FirestoreRecyclerOptions<Recipe>):
             binding.tvRecipeName.text = recipe.name
             binding.tvFoodCategory.text = recipe.category
             binding.tvCookingTime.text = recipe.cookingTime
+
+            binding.root.setOnClickListener {
+                onRecipeClicked(recipe)
+            }
         }
     }
 

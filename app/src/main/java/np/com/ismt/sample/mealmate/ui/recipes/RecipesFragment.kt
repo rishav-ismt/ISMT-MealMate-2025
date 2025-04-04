@@ -1,5 +1,6 @@
 package np.com.ismt.sample.mealmate.ui.recipes
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import np.com.ismt.sample.mealmate.databinding.FragmentRecipesBinding
 import np.com.ismt.sample.mealmate.helpers.VerticalSpacingDecorator
 import np.com.ismt.sample.mealmate.models.Recipe
+import np.com.ismt.sample.mealmate.ui.recipes.add.AddRecipeActivity
+import np.com.ismt.sample.mealmate.ui.recipes.detail.RecipeDetailsActivity
 
 class RecipesFragment : Fragment() {
 
@@ -43,6 +46,27 @@ class RecipesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpRecipes()
+        setUpAddRecipe()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.rvRecipes.recycledViewPool.clear()
+        adapter.startListening()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onDestroy() {
+        adapter.stopListening()
+        super.onDestroy()
+    }
+
+    private fun setUpRecipes() {
         db?.apply {
             setUpRecipesAdapter()
             _binding?.rvRecipes?.layoutManager = LinearLayoutManager(requireActivity())
@@ -53,27 +77,12 @@ class RecipesFragment : Fragment() {
                         top = 0,
                         start = 0,
                         end = 0,
-                        bottom = 16
+                        bottom = 24
                     )
                 )
             }
             _binding?.rvRecipes?.adapter = adapter
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setUpRecipesAdapter() {
@@ -83,6 +92,25 @@ class RecipesFragment : Fragment() {
             .setQuery(query, Recipe::class.java)
             .build()
 
-        adapter = RecipesAdapter(options)
+        adapter = RecipesAdapter(
+            options,
+            onRecipeClicked = { recipe ->
+                openRecipeDetails(recipe)
+            }
+        )
+    }
+
+    private fun setUpAddRecipe() {
+        _binding?.fabAddRecipe?.setOnClickListener {
+            startActivity(Intent(requireActivity(), AddRecipeActivity::class.java))
+        }
+    }
+
+    private fun openRecipeDetails(recipe: Recipe) {
+        val intent = Intent(requireActivity(), RecipeDetailsActivity::class.java)
+        intent.apply {
+            this.putExtra("recipe", recipe)
+            startActivity(this)
+        }
     }
 }
